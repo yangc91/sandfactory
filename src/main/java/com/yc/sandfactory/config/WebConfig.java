@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -33,7 +34,7 @@ import redis.clients.jedis.JedisPoolConfig;
  */
 @Configuration
 //@PropertySource({"classpath:system.properties"})
-//@ImportResource({"classpath*:/rest_config.xml"})
+@ImportResource({"classpath*:/rest_config.xml"})
 public class WebConfig implements WebMvcConfigurer {
 
   public Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -48,8 +49,7 @@ public class WebConfig implements WebMvcConfigurer {
 
   @Bean
   public NutDao nutDao(DataSource dataSource) {
-    //return new NutDao(dataSource);
-    return null;
+    return new NutDao(dataSource);
   }
 
   @Bean

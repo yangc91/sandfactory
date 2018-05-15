@@ -18,9 +18,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * @Auther: yangchun
  * @Date: 2017-8-19 10:30
  */
-@Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+//@Configuration
+//@EnableWebSecurity
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   /**
