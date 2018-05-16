@@ -1,187 +1,115 @@
-package com.yc.sandfactory.entity;
+package com.yc.sandfactory.bean;
 
+import com.yc.sandfactory.page.PageBean;
 import java.io.Serializable;
-import org.nutz.dao.entity.annotation.Column;
-import org.nutz.dao.entity.annotation.Id;
-import org.nutz.dao.entity.annotation.Table;
 
 /**
  * @project: sandfactory
  * @author: yc
  */
-@Table("t_cz_record")
-public class ChengZhongRecord implements Serializable {
+public class RecodRequestBean implements Serializable {
 
   private static final long serialVersionUID = 5228269850702848343L;
 
-  @Id
-  @Column("n_id")
+  // 用户分页查询
+  private PageBean page;
+  // id
   private Integer id;
-
   // 沙场
-  @Column("c_sand_name")
   private String sandName;
-
-
   // 工作站
-  @Column("c_work_name")
   private String workName;
-
   // 地磅
-  @Column("c_truck_name")
   private String truckName;
-
   // 序号(票据编号)
-  @Column("c_xh")
   private String xh;
-
   //车号(车辆号码)
-  @Column("c_ch")
   private String ch;
-
   //货名（货物名称）
-  @Column("c_hm")
   private String hm;
-
   //发货
-  @Column("c_fh")
   private String fh;
-
   //收货
-  @Column("c_sh")
   private String sh;
-
   //规格
-  @Column("c_gg")
   private String gg;
-
   //备用2
-  @Column("c_by2")
   private String by2;
-
   //出入类型
-  @Column("c_crlx")
   private String crlx;
-
   //毛重
-  @Column("n_mz")
-  private float mz;
-
+  private String mz;
   //皮重
-  @Column("n_pz")
-  private float pz;
-
+  private String pz;
   //净重
-  @Column("n_jz")
-  private float jz;
+  private String jz;
 
   //扣杂
-  @Column("n_kz")
-  private float kz;
-
+  private String kz;
   //扣率
-  @Column("n_kl")
-  private float kl;
-
+  private String kl;
   //单价
-  @Column("n_dj")
-  private float dj;
-
+  private String dj;
   //金额
-  @Column("n_je")
-  private float je;
-
+  private String je;
   //备用3
-  @Column("c_by3")
   private String by3;
-
   //备用4
-  @Column("c_by4")
   private String by4;
 
   //司机
-  @Column("c_siji")
   private String siji;
-
   //监磅
-  @Column("c_jb")
   private String jb;
-
   //日期
-  @Column("c_rq")
   private String rq;
-
   //时间
-  @Column("c_shijian")
   private String shijian;
-
   //台号
-  @Column("c_th")
   private String th;
-
   //操作员
-  @Column("c_czy")
   private String czy;
 
   //备注
-  @Column("c_bz")
   private String bz;
-
   //毛重时间
-  @Column("c_mzsj")
   private String mzsj;
-
   //皮重时间
-  @Column("c_pzsj")
   private String pzsj;
 
   //上传
-  @Column("c_sc")
   private String sc;
-
   //打印
-  @Column("c_dy")
   private String dy;
-
   //净重1
-  @Column("n_jz1")
-  private float jz1;
+  private String jz1;
 
   //扣杂系数
-  @Column("n_kzxs")
-  private float kzxs;
-
+  private String kzxs;
   //扣率系数
-  @Column("n_klxs")
-  private float klxs;
-
+  private String klxs;
   //结算
-  @Column("c_js")
   private String js;
-
   //结算编号
-  @Column("c_jsbh")
   private String jsbh;
-
   //操作员1
-  @Column("c_czy1")
   private String czy1;
-
   //开票
-  @Column("c_kp")
   private String kp;
-
   //一次日期
-  @Column("c_ycrq")
   private String ycrq;
-
   //台号1
-  @Column("c_th1")
   private String th1;
-
   //余款
-  @Column("n_yk")
-  private float yk;
+  private String yk;
+
+  public PageBean getPage() {
+    return page;
+  }
+
+  public void setPage(PageBean page) {
+    this.page = page;
+  }
 
   public Integer getId() {
     return id;
@@ -279,59 +207,59 @@ public class ChengZhongRecord implements Serializable {
     this.crlx = crlx;
   }
 
-  public float getMz() {
+  public String getMz() {
     return mz;
   }
 
-  public void setMz(float mz) {
+  public void setMz(String mz) {
     this.mz = mz;
   }
 
-  public float getPz() {
+  public String getPz() {
     return pz;
   }
 
-  public void setPz(float pz) {
+  public void setPz(String pz) {
     this.pz = pz;
   }
 
-  public float getJz() {
+  public String getJz() {
     return jz;
   }
 
-  public void setJz(float jz) {
+  public void setJz(String jz) {
     this.jz = jz;
   }
 
-  public float getKz() {
+  public String getKz() {
     return kz;
   }
 
-  public void setKz(float kz) {
+  public void setKz(String kz) {
     this.kz = kz;
   }
 
-  public float getKl() {
+  public String getKl() {
     return kl;
   }
 
-  public void setKl(float kl) {
+  public void setKl(String kl) {
     this.kl = kl;
   }
 
-  public float getDj() {
+  public String getDj() {
     return dj;
   }
 
-  public void setDj(float dj) {
+  public void setDj(String dj) {
     this.dj = dj;
   }
 
-  public float getJe() {
+  public String getJe() {
     return je;
   }
 
-  public void setJe(float je) {
+  public void setJe(String je) {
     this.je = je;
   }
 
@@ -439,27 +367,27 @@ public class ChengZhongRecord implements Serializable {
     this.dy = dy;
   }
 
-  public float getJz1() {
+  public String getJz1() {
     return jz1;
   }
 
-  public void setJz1(float jz1) {
+  public void setJz1(String jz1) {
     this.jz1 = jz1;
   }
 
-  public float getKzxs() {
+  public String getKzxs() {
     return kzxs;
   }
 
-  public void setKzxs(float kzxs) {
+  public void setKzxs(String kzxs) {
     this.kzxs = kzxs;
   }
 
-  public float getKlxs() {
+  public String getKlxs() {
     return klxs;
   }
 
-  public void setKlxs(float klxs) {
+  public void setKlxs(String klxs) {
     this.klxs = klxs;
   }
 
@@ -511,11 +439,11 @@ public class ChengZhongRecord implements Serializable {
     this.th1 = th1;
   }
 
-  public float getYk() {
+  public String getYk() {
     return yk;
   }
 
-  public void setYk(float yk) {
+  public void setYk(String yk) {
     this.yk = yk;
   }
 }

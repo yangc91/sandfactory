@@ -1,12 +1,15 @@
 package com.yc.sandfactory.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.yc.sandfactory.bean.RecodRequestBean;
+import com.yc.sandfactory.entity.ChengZhongRecord;
+import com.yc.sandfactory.page.LitePaging;
 import com.yc.sandfactory.service.IChengZhongService;
-import java.util.HashMap;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,19 +26,24 @@ public class ChengZhongController {
   @Autowired
   private IChengZhongService chengZhongService;
 
-  @RequestMapping(value = "list")
-  public Object getAuthMode(String clientType, HttpServletResponse response) {
-    logger.info("获取称重list请求的输入参数：clientType： {}", clientType);
+  @RequestMapping(value = "/list")
+  public Object list(@RequestBody RecodRequestBean recodRequestBean, HttpServletResponse response)
+      throws JsonProcessingException {
+    logger.info("调用称重list请求的输入参数：recodRequestBean：{}",
+        JsonMapperProvide.alwaysMapper().writeValueAsString(recodRequestBean)
+    );
 
-    if (StringUtils.isBlank(clientType)) {
-      logger.error("获取客户端认证方式失败，缺少必要参数");
-      //return HttpError.MISSING_REQUIRED_PARAMETERS.handle(response);
-    }
+    LitePaging<ChengZhongRecord> pagination =
+        chengZhongService.queryRecordForPage(recodRequestBean,
+            recodRequestBean.getPage().getPageNo(), recodRequestBean.getPage().getPageSize());
 
-    HashMap<String, Object> result = new HashMap();
-    result.put("modes", "");
-
-    return result;
+    return pagination;
   }
 
+  @RequestMapping(value = "/get")
+  public Object get(Integer id) {
+    logger.info("调用称重详情接口请求的输入参数：id：{}", id);
+    ChengZhongRecord record = chengZhongService.getRecord(id);
+    return record;
+  }
 }

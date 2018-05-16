@@ -1,10 +1,10 @@
 package com.yc.sandfactory.service.impl;
 
+import com.yc.sandfactory.bean.RecodRequestBean;
 import com.yc.sandfactory.entity.ChengZhongRecord;
 import com.yc.sandfactory.page.LitePaging;
 import com.yc.sandfactory.service.IChengZhongService;
 import java.util.List;
-import org.apache.commons.lang3.StringUtils;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.impl.NutDao;
 import org.nutz.dao.pager.Pager;
@@ -23,8 +23,7 @@ public class ChengZhongServiceImpl implements IChengZhongService {
   private NutDao nutDao;
 
   @Override
-  public LitePaging<ChengZhongRecord> queryRecordForPage(String searchKey, Integer pageSize,
-      Integer pageNo) {
+  public LitePaging<ChengZhongRecord> queryRecordForPage(RecodRequestBean recodRequestBean, Integer pageNo, Integer pageSize) {
     Pager pager = nutDao.createPager(pageNo, pageSize);
 
     Criteria cri = Cnd.cri();
@@ -37,7 +36,7 @@ public class ChengZhongServiceImpl implements IChengZhongService {
     //          .or("packageName", "like", "%" + searchKey + "%"));
     //}
 
-    cri.getOrderBy().desc("createTime");
+    cri.getOrderBy().desc("id");
     List<ChengZhongRecord> list = nutDao.query(ChengZhongRecord.class, cri, pager);
     int count = nutDao.count(ChengZhongRecord.class, cri);
 
@@ -48,5 +47,10 @@ public class ChengZhongServiceImpl implements IChengZhongService {
     litePaging.setTotalCount(count);
 
     return litePaging;
+  }
+
+  @Override
+  public ChengZhongRecord getRecord(int id) {
+    return nutDao.fetch(ChengZhongRecord.class, id);
   }
 }

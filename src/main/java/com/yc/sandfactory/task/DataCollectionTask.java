@@ -80,7 +80,11 @@ public class DataCollectionTask implements Runnable {
     try {
       // 先查询自己该磅的最新记录，作为条件去远程收集数据
       Cnd cnd = Cnd.NEW();
+      cnd.where().and("sandName", "=", sandName)
+          .and("workName", "=", workName)
+          .and("truckName", "=", truckName);
       cnd.orderBy("id", "desc");
+
       ChengZhongRecord latestRecord = nutDao.fetch(ChengZhongRecord.class, cnd);
 
       String sqlStr = "SELECT dbo.czsjk.序号, dbo.czsjk.车号, dbo.czsjk.货名, dbo.czsjk.发货, dbo.czsjk.收货, "
@@ -116,6 +120,116 @@ public class DataCollectionTask implements Runnable {
             czrd.setTruckName(truckName);
 
             czrd.setXh(rs.getString("序号"));
+
+            //车号(车辆号码)
+            czrd.setCh(rs.getString("车号"));
+
+            //货名（货物名称）
+            czrd.setHm(rs.getString("货名"));
+
+            //发货
+            czrd.setFh(rs.getString("发货"));
+
+            //收货
+            czrd.setSh(rs.getString("收货"));
+
+            //规格
+            czrd.setGg(rs.getString("规格"));
+
+            //备用2
+            czrd.setBy2(rs.getString("备用2"));
+
+            //出入类型
+            czrd.setCrlx(rs.getString("出入类型"));
+
+            //毛重
+            czrd.setMz(rs.getFloat("毛重"));
+
+            //皮重
+            czrd.setPz(rs.getFloat("皮重"));
+
+            //净重
+            czrd.setJz(rs.getFloat("净重"));
+
+            //扣杂
+            czrd.setKz(rs.getFloat("扣杂"));
+
+            //扣率
+            czrd.setKl(rs.getFloat("扣率"));
+
+            //单价
+            czrd.setDj(rs.getFloat("单价"));
+
+            //金额
+            czrd.setJe(rs.getFloat("金额"));
+
+            //备用3
+            czrd.setBy3(rs.getString("备用3"));
+
+            //备用4
+            czrd.setBy4(rs.getString("备用4"));
+
+            //司机
+            czrd.setSiji(rs.getString("司机"));
+
+            //监磅
+            czrd.setJb(rs.getString("监磅"));
+
+            //日期
+            czrd.setRq(rs.getString("日期"));
+
+            //时间
+            czrd.setShijian(rs.getString("时间"));
+
+            //台号
+            czrd.setTh(rs.getString("台号"));
+
+            //操作员
+            czrd.setCzy(rs.getString("操作员"));
+
+            //备注
+            czrd.setBz(rs.getString("备注"));
+
+            //毛重时间
+            czrd.setMzsj(rs.getString("毛重时间"));
+
+            //皮重时间
+            czrd.setPzsj(rs.getString("皮重时间"));
+
+            //上传
+            czrd.setSc(rs.getString("上传"));
+
+            //打印
+            czrd.setDy(rs.getString("打印"));
+
+            //净重1
+            czrd.setJz1(rs.getFloat("净重1"));
+
+            //扣杂系数
+            czrd.setKzxs(rs.getFloat("扣杂系数"));
+
+            //扣率系数
+            czrd.setKlxs(rs.getFloat("扣率系数"));
+
+            //结算
+            czrd.setJs(rs.getString("结算"));
+
+            //结算编号
+            czrd.setJsbh(rs.getString("结算编号"));
+
+            //操作员1
+            czrd.setCzy1(rs.getString("操作员1"));
+
+            //开票
+            czrd.setKp(rs.getString("开票"));
+
+            //一次日期
+            czrd.setYcrq(rs.getString("一次日期"));
+            //台号1
+            czrd.setTh1(rs.getString("台号1"));
+
+            //余款
+            czrd.setYk(rs.getFloat("余款"));
 
             list.add(czrd);
           }
