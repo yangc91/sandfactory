@@ -6,7 +6,7 @@ import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
+//import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -159,13 +159,13 @@ public class CustomRestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), ex.getStatus());
     }
 
-    @ExceptionHandler({ AccessDeniedException.class })
-    public ResponseEntity<Object> handleAccessDeniedException(final AccessDeniedException ex, final WebRequest request) {
-        // logger.error("error", ex);
-        final ApiError apiError = new ApiError(HttpStatus.FORBIDDEN, "0x0004", "无权访问");
-
-        return new ResponseEntity<Object>(apiError, new HttpHeaders(), HttpStatus.FORBIDDEN);
-    }
+//    @ExceptionHandler({ AccessDeniedException.class })
+//    public ResponseEntity<Object> handleAccessDeniedException(final AccessDeniedException ex, final WebRequest request) {
+//        // logger.error("error", ex);
+//        final ApiError apiError = new ApiError(HttpStatus.FORBIDDEN, "0x0004", "无权访问");
+//
+//        return new ResponseEntity<Object>(apiError, new HttpHeaders(), HttpStatus.FORBIDDEN);
+//    }
 
 
     // 500

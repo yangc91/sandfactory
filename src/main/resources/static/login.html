@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title>登录</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+</head>
+<body>
+<div class="container">
+
+    <form class="form-signin" role="form" action="page/index.html" method="post">
+        <h2 class="form-signin-heading">请登录</h2>
+        <input name="username" type="text" class="form-control" placeholder="用户名" required autofocus value="admin">
+        <input name="password" type="password" class="form-control" placeholder="密码" required value="admin">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+    </form>
+
+</div> <!-- /container -->
+</body>
+
+<link rel="stylesheet" href="theme/default/css/login/login.css">
+<script type="text/javascript" src="script/jquery-1.10.2.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<link rel="stylesheet" href="script/bootcss/3.2.0/css/bootstrap.min.css">
+<script type="text/javascript" src="script/bootcss/3.2.0/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="script/placeholder/placeholder.js"></script>
+<script type="text/javascript">
+    $(function(){
+        placeholder();
+    })
+</script>
+</html>

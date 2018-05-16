@@ -1,0 +1,205 @@
+<form class="form-horizontal" role="form" id="role_add_form">
+  <div class="form-group">
+    <label for="inputRoleName" class="col-sm-3 control-label">角色名</label>
+    <div class="col-sm-8">
+      <input type="text" name="name" class="form-control" id="inputRoleName" placeholder="请输入角色名称"
+      	validate-tags="required" validate-minLength="3" validate-message="{required:'此项必填!'}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputRoleNote" class="col-sm-3 control-label">备注</label>
+    <div class="col-sm-8">
+      <input type="text" name="note" class="form-control" id="inputRoleNote" placeholder="请输入备注" 
+      	data-placement="right" validate-tags="required number" validate-range="-50~50">
+    </div>
+  </div>
+  <div class="form-group">
+  	<label for="timepicker" class="col-sm-3 control-label">时间</label>
+  	<div class="col-sm-8">
+  		<div class="input-group bootstrap-timepicker">
+  			<input id="timepicker" type="text" class="form-control">
+  			<div class="input-group-addon"><span class="glyphicon glyphicon-time"></span></div>
+  		</div>
+  	</div>
+  </div>
+  <div class="form-group">
+    <label for="inputDate" class="col-sm-3 control-label">日期</label>
+    <div class="col-sm-8">
+   		<input type="text" name="note" class="form-control" id="inputDate">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputStart" class="col-sm-3 control-label">开始</label>
+    <div class="col-sm-8">
+   		<input type="text" name="note" class="form-control" id="inputStart" >
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEnd" class="col-sm-3 control-label">结束</label>
+    <div class="col-sm-8">
+   		<input type="text" name="note" class="form-control" id="inputEnd" >
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="test" class="col-sm-3 control-label">单选下拉</label>
+    <div class="col-sm-8">
+   		<select id="test" name="test" class="selectBoxIt">
+		    <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+		    <option value="a jQuery Plugin">a jQuery Plugin</option>
+		    <option value="a Select Box Replacement">a Select Box Replacement</option>
+		    <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+		  </select>
+    </div>
+  </div>
+  <div class="form-group">
+  	<label for="testMultiple" class="col-sm-3 control-label">多选下拉</label>
+    <div class="col-sm-8">
+   		<select id="testMultiple" name="testMultiple" multiple="multiple">
+		    <option value="SelectBoxIt is:">SelectBoxIt is:</option>
+		    <option value="a jQuery Plugin">a jQuery Plugin</option>
+		    <option value="a Select Box Replacement">a Select Box Replacement</option>
+		    <option value="a Stateful UI Widget">a Stateful UI Widget</option>
+		  </select>
+    </div>
+  </div>
+  <div class="form-group">
+  	<label for="timepicker111" class="col-sm-3 control-label">时间</label>
+  	<div class="col-sm-8">
+  		<div class="input-group bootstrap-timepicker">
+  			<input id="timepicker111" type="text" class="form-control">
+  			<div class="input-group-addon"><span class="glyphicon glyphicon-time"></span></div>
+  		</div>
+  	</div>
+  </div>
+  
+  <div class="form-group">
+  	<label for="citySel1" class="col-sm-3 control-label">地点</label>
+  	<div class="col-sm-8">
+  		<div class="input-group" style="width:200px;">
+			<input type="text" class="form-control" id="citySel1" onclick="showMenu1();" readonly="readonly"/>
+			<span class="input-group-addon" id="menuBtn1" onclick="showMenu1(); return false;"><b class="caret"></b></span>
+		</div>
+		<div id="menuContent1" class="menuContent" style="display:none; position:fixed;z-index:1000;">
+			<ul id="treeDemo1" class="ztree" style="margin-top:0; width:180px; height: 200px;"></ul>
+		</div>
+  	</div>
+  </div>
+	
+</form>
+<script type="text/javascript">
+	$(function(){
+		$('.selectBoxIt').selectBoxIt();
+		$('#testMultiple').multiselect();
+		$('#timepicker').timepicker();
+		$('#timepicker111').timepicker();
+		//输入框placeholder的IE兼容处理
+		placeholder();
+		//初始化表单验证
+		$("#role_add_form").validation();
+		$('#inputDate').datepicker();
+		//开始时间和结束时间
+	    var nowTemp = new Date();
+	    var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+	    var checkin = $('#inputStart').datepicker({
+	    	onRender: function(date) {
+	    	return date.valueOf() < now.valueOf() ? 'disabled' : '';
+	    	}
+	    }).on('changeDate', function(ev) {
+	    	if (ev.date.valueOf() > checkout.date.valueOf()) {
+	    		var newDate = new Date(ev.date)
+	    		newDate.setDate(newDate.getDate() + 1);
+	    		checkout.setValue(newDate);
+	    	}
+	    	checkin.hide();
+	    	$('#inputEnd')[0].focus();
+	    }).data('datepicker');
+	    var checkout = $('#inputEnd').datepicker({
+	    	onRender: function(date) {
+	    		return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+	    	}
+	    }).on('changeDate', function(ev) {
+	    	checkout.hide();
+	    }).data('datepicker');
+	})
+</script>
+
+<SCRIPT type="text/javascript">
+		var setting1 = {
+			check: {
+				enable: true,
+				chkboxType: {"Y":"", "N":""}
+			},
+			view: {
+				dblClickExpand: false
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				beforeClick: beforeClick1,
+				onCheck: onCheck1
+			}
+		};
+		//=============================================
+		var zNodes1 =[
+			{id:1, pId:0, name:"北京"},
+			{id:2, pId:0, name:"天津"},
+			{id:3, pId:0, name:"上海"},
+			{id:6, pId:0, name:"重庆"},
+			{id:4, pId:0, name:"河北省", open:true, nocheck:true},
+			{id:41, pId:4, name:"石家庄"},
+			{id:42, pId:4, name:"保定"},
+			{id:43, pId:4, name:"邯郸"},
+			{id:44, pId:4, name:"承德"},
+			{id:5, pId:0, name:"广东省", open:true, nocheck:true},
+			{id:51, pId:5, name:"广州"},
+			{id:52, pId:5, name:"深圳"},
+			{id:53, pId:5, name:"东莞"},
+			{id:54, pId:5, name:"佛山"},
+			{id:6, pId:0, name:"福建省", open:true, nocheck:true},
+			{id:61, pId:6, name:"福州"},
+			{id:62, pId:6, name:"厦门"},
+			{id:63, pId:6, name:"泉州"},
+			{id:64, pId:6, name:"三明"}
+		 ];
+		//=============================================
+		function beforeClick1(treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo1");
+			zTree.checkNode(treeNode, !treeNode.checked, null, true);
+			return false;
+		}
+		//=============================================
+		function onCheck1(e, treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo1"),
+			nodes = zTree.getCheckedNodes(true),
+			v = "";
+			for (var i=0, l=nodes.length; i<l; i++) {
+				v += nodes[i].name + ",";
+			}
+			if (v.length > 0 ) v = v.substring(0, v.length-1);
+			var cityObj = $("#citySel1");
+			cityObj.attr("value", v);
+		}
+		//=============================================
+		function showMenu1() {
+			$("#menuContent1").slideDown("fast");
+
+			$("body").bind("mousedown", onBodyDown1);
+		}
+		function hideMenu1() {
+			$("#menuContent1").fadeOut("fast");
+			$("body").unbind("mousedown", onBodyDown1);
+		}
+		function onBodyDown1(event) {
+			if (!(event.target.id == "menuBtn1" || event.target.id == "citySel1" || event.target.id == "menuContent1" || $(event.target).parents("#menuContent1").length>0)) {
+				hideMenu1();
+			}
+		}
+		
+		
+		$(document).ready(function(){
+			$.fn.zTree.init($("#treeDemo1"), setting1, zNodes1);
+		});
+	</SCRIPT>
