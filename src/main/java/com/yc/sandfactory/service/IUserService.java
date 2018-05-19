@@ -16,9 +16,13 @@ public interface IUserService {
    * @param pageSize
    * @return
    */
-  LitePaging<User> queryUserForPage(
-      User user, Integer pageNo, Integer pageSize);
+  LitePaging<User> queryUserForPage(User user, Integer pageNo, Integer pageSize);
 
+  /**
+   * 根据ID获取用户
+   * @param id
+   * @return
+   */
   User getUser(int id);
 
   void delUser(int id);

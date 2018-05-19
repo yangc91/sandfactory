@@ -31,7 +31,7 @@ import java.util.List;
  * @since 2018/5/17 上午12:18
  */
 @RestController
-@RequestMapping("/user/")
+@RequestMapping("/admin/sys/user/")
 public class UserController {
 
     public Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -41,21 +41,6 @@ public class UserController {
 
     @Autowired
     private ISystemLogService systemLogService;
-
-    //@RequestMapping("list")
-    //public Pagination list() {
-    //    List<SysRole> roles = new ArrayList<>();
-    //    for (int i = 1; i < 11; i++) {
-    //        SysRole sysRole = new SysRole();
-    //        sysRole.setId((long) i);
-    //        sysRole.setName("role-" + i);
-    //        sysRole.setNote("note-" + i);
-    //
-    //        roles.add(sysRole);
-    //    }
-    //
-    //    return new Pagination(0, 10, 100, roles);
-    //}
 
     @RequestMapping(value = "/list")
     public Object list(User condition)
@@ -98,7 +83,7 @@ public class UserController {
         return result;
     }
 
-    @RequestMapping(value = "/add")
+    @RequestMapping(value = "/save")
     public Object get(User user, HttpServletRequest request) throws JsonProcessingException {
         logger.info("user add：输入参数：{}", JsonMapperProvide.alwaysMapper().writeValueAsString(user));
         Map<String, Object> result = new HashMap<>();
