@@ -30,11 +30,13 @@ public class ChengZhongServiceImpl implements IChengZhongService {
     Criteria cri = Cnd.cri();
 
     if(StringUtils.isNotBlank(startTime)) {
-      cri.where().and("pzsj", ">=", DateTimeUtil.dateTimeStrToLong(startTime + " 00:00:00"));
+      //cri.where().and("pzsj", ">=", DateTimeUtil.dateTimeStrToLong(startTime + " 00:00:00"));
+      cri.where().and("pzsj", ">=", startTime + " 00:00:00");
     }
 
     if (StringUtils.isNotBlank(endTime)) {
-      cri.where().and("pzsj", "<", DateTimeUtil.dateTimeStrToLong(endTime + " 23:59:59"));
+      //cri.where().and("pzsj", "<", DateTimeUtil.dateTimeStrToLong(endTime + " 23:59:59"));
+      cri.where().and("pzsj", "<", endTime + " 23:59:59");
     }
 
     // 序号

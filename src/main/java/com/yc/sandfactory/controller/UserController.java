@@ -7,11 +7,13 @@ import com.yc.sandfactory.page.DataTablesParameters;
 import com.yc.sandfactory.page.DataTablesReply;
 import com.yc.sandfactory.page.LitePaging;
 import com.yc.sandfactory.page.Pagination;
+import com.yc.sandfactory.service.ISystemLogService;
 import com.yc.sandfactory.service.IUserService;
+import com.yc.sandfactory.util.Constants;
 import com.yc.sandfactory.util.JsonMapperProvide;
 import java.util.HashMap;
 import java.util.Map;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,9 @@ public class UserController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private ISystemLogService systemLogService;
 
     //@RequestMapping("list")
     //public Pagination list() {
@@ -77,7 +82,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/del")
-    public Object del(Integer id) {
+    public Object del(Integer id, HttpServletRequest request) {
         logger.info("user del：id：{}", id);
         Map<String, Object> result = new HashMap<>();
         result.put("success", "false");
@@ -85,6 +90,7 @@ public class UserController {
         try {
             userService.delUser(id);
             result.put("success", "true");
+            systemLogService.addLog(request.getRemoteAddr(), Constants.ENUM_LOG_TYPE.userManagerLog, "删除用户【 " +id+ "】成功");
         } catch (Exception e) {
             logger.error("删除用户出错", e);
         }
@@ -93,12 +99,13 @@ public class UserController {
     }
 
     @RequestMapping(value = "/add")
-    public Object get(User user) throws JsonProcessingException {
+    public Object get(User user, HttpServletRequest request) throws JsonProcessingException {
         logger.info("user add：输入参数：{}", JsonMapperProvide.alwaysMapper().writeValueAsString(user));
         Map<String, Object> result = new HashMap<>();
         result.put("success", "false");
         try {
             userService.addUser(user);
+            systemLogService.addLog(request.getRemoteAddr(), Constants.ENUM_LOG_TYPE.userManagerLog, "添加用户【 " +user.getName()+ "】成功");
         } catch (Exception e) {
             logger.error("添加用户出错", e);
         }
@@ -107,7 +114,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/update")
-    public Object update(User user) throws JsonProcessingException {
+    public Object update(User user, HttpServletRequest request) throws JsonProcessingException {
 
         logger.info("user update：输入参数：{}",
             JsonMapperProvide.alwaysMapper().writeValueAsString(user));
@@ -117,6 +124,7 @@ public class UserController {
         try {
             userService.updateUser(user);
             result.put("success", "true");
+            systemLogService.addLog(request.getRemoteAddr(), Constants.ENUM_LOG_TYPE.userManagerLog, "修改用户【 " +user.getName()+ "】成功");
         } catch (Exception e) {
             logger.error("更新用户出错", e);
         }
