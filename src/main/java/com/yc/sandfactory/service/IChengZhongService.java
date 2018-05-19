@@ -1,6 +1,5 @@
 package com.yc.sandfactory.service;
 
-import com.yc.sandfactory.bean.RecodRequestBean;
 import com.yc.sandfactory.entity.ChengZhongRecord;
 import com.yc.sandfactory.page.LitePaging;
 
@@ -12,12 +11,12 @@ public interface IChengZhongService {
 
   /**
    * 分页查找
-   * @param recodRequestBean
+   * @param chengZhongRecord
    * @param pageNo
    * @param pageSize
    * @return
    */
-  LitePaging<ChengZhongRecord> queryRecordForPage(RecodRequestBean recodRequestBean, Integer pageNo, Integer pageSize);
+  LitePaging<ChengZhongRecord> queryRecordForPage(String startTime, String endTime, ChengZhongRecord chengZhongRecord, Integer pageNo, Integer pageSize);
 
   ChengZhongRecord getRecord(int id);
 

@@ -1,15 +1,15 @@
 package com.yc.sandfactory.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.yc.sandfactory.bean.RecodRequestBean;
 import com.yc.sandfactory.entity.ChengZhongRecord;
+import com.yc.sandfactory.page.DataTablesParameters;
+import com.yc.sandfactory.page.DataTablesReply;
 import com.yc.sandfactory.page.LitePaging;
 import com.yc.sandfactory.service.IChengZhongService;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,17 +27,19 @@ public class ChengZhongController {
   private IChengZhongService chengZhongService;
 
   @RequestMapping(value = "/list")
-  public Object list(@RequestBody RecodRequestBean recodRequestBean, HttpServletResponse response)
+  public Object list(String startTime, String endTime, ChengZhongRecord condition, HttpServletResponse response)
       throws JsonProcessingException {
     logger.info("调用称重list请求的输入参数：recodRequestBean：{}",
-        JsonMapperProvide.alwaysMapper().writeValueAsString(recodRequestBean)
+        JsonMapperProvide.alwaysMapper().writeValueAsString(condition)
     );
 
-    LitePaging<ChengZhongRecord> pagination =
-        chengZhongService.queryRecordForPage(recodRequestBean,
-            recodRequestBean.getPage().getPageNo(), recodRequestBean.getPage().getPageSize());
+    DataTablesParameters tables = DataTablesParameters.newInstance();
 
-    return pagination;
+    LitePaging<ChengZhongRecord> pagination =
+        chengZhongService.queryRecordForPage(startTime, endTime, condition,
+            tables.getPage(), tables.getLength());
+
+    return new DataTablesReply(pagination, tables.getDraw());
   }
 
   @RequestMapping(value = "/get")
