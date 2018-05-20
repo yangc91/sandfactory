@@ -29,14 +29,6 @@
 	var roleAddDialog;
 	var loadingDialog;
 
-	function update(id) {
-	    alert(id);
-	}
-
-	function del(id) {
-
-	}
-
 	$(function() {
 
 		//输入框placeholder的IE兼容处理
@@ -73,7 +65,7 @@
 		
 		$("#addBtn").click(function(e){
 			roleAddDialog = bootbox.extDialog({
-				load:"sys/roleAdd.html",
+				load:"page/sys/roleAdd.html",
 				title: "添加角色",
 				width: 500,
 				height: 100,

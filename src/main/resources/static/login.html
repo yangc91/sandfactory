@@ -10,11 +10,11 @@
 <body>
 <div class="container">
 
-    <form class="form-signin" role="form" action="/login.do" method="post">
+    <form class="form-signin" role="form" onsubmit="return false">
         <h2 class="form-signin-heading">请登录</h2>
-        <input name="userName" type="text" class="form-control" placeholder="用户名" required autofocus value="admin">
-        <input name="password" type="password" class="form-control" placeholder="密码" required value="admin">
-        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+        <input id="username" name="username" type="text" class="form-control" placeholder="用户名" required autofocus>
+        <input id="password" name="password" type="password" class="form-control" placeholder="密码" required>
+        <button id="loginButton" class="btn btn-lg btn-primary btn-block">登录</button>
     </form>
 
 </div> <!-- /container -->
@@ -29,7 +29,52 @@
 <script type="text/javascript" src="script/placeholder/placeholder.js"></script>
 <script type="text/javascript">
     $(function(){
+
         placeholder();
+
+        //获取输入焦点
+        $("#username").focus();
+
+        $("#loginButton").click(login);
+
+        function login() {
+            var username = $("#username").val();
+            if(!username) {
+                $(".warning").html("用户名不能为空");
+                $("#username").focus();
+                return;
+            }
+
+            var pwd = $("#password").val();
+            if(!pwd) {
+                $(".warn").html("密码不能为空");
+                $("#password").focus();
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "/login" ,
+                data: $('.form-signin').serialize(),
+                success: function (result) {
+                    if (result.flag) {
+                        window.location.href = "index.html";
+                    } else {
+                        alert(result.data);
+                    }
+                }
+            });
+
+            // $("#dataForm").submit();
+        }
+
+        // 监听Enter键进行登陆
+        $(this).keydown(function(event) {
+            if (event.keyCode == 13) {
+                $("#loginButton").click();
+            }
+        });
     })
 </script>
 </html>

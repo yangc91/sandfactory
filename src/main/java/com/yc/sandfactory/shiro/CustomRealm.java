@@ -34,6 +34,7 @@ public class CustomRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         String username = (String) super.getAvailablePrincipal(principalCollection);
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+        User admin = userService.getUserByUserName("admin");
 //        Set<String> roles = shiroSampleDao.getRolesByUsername(username);
 //        authorizationInfo.setRoles(roles);
 //        roles.forEach(role -> {

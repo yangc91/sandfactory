@@ -2348,15 +2348,18 @@
 			"cache": false,
 			"type": oSettings.sServerMethod,
 			"error": function (xhr, error, thrown) {
+				// TODO 弹你妈逼  先回登录页吧
+				// window.location.href = "/login.html";
+
 				var log = oSettings.oApi._fnLog;
-	
+
 				if ( error == "parsererror" ) {
 					log( oSettings, 0, 'Invalid JSON response', 1 );
 				}
 				else if ( xhr.readyState === 4 ) {
 					log( oSettings, 0, 'Ajax error', 7 );
 				}
-	
+
 				_fnProcessingDisplay( oSettings, false );
 			}
 		};

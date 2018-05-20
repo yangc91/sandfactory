@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>xxx管理平台</title>
+
+	<style type="text/css">
+		@-ms-viewport{ width: device-width; }
+		body{overflow: hidden;}
+		.panel{margin-bottom: 0 !important;}
+		.panel-body{padding: 6px !important;}
+		.modal-body{overflow-y: auto;overflow-x:hidden; }
+		.modal-footer{margin-top: 0 !important;}
+	</style>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="script/bootcss/3.2.0/css/bootstrap.css">
+    <!-- 管理平台样式 -->
+	<link rel="stylesheet" href="theme/default/css/public/dashboard.css">
+	
+    <script src="script/assets/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="script/assets/html5shiv.min.js"></script>
+      <script src="script/assets/respond.min.js"></script>
+    <![endif]-->
+    
+    
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" type="text/css" href="script/bsie/bootstrap/css/bootstrap-ie6.css">
+    <![endif]-->
+    <!--[if lte IE 7]>
+    <link rel="stylesheet" type="text/css" href="script/bsie/bootstrap/css/ie.css">
+    <![endif]-->
+    
+    
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">xxx管理平台</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <!--<li><a href="#">消息</a></li>-->
+            <!--<li><a href="#">设置</a></li>-->
+            <li><a href="/logout">退出</a></li>
+            <!--<li><a href="#"><font id="tour-test3">帮助</font></a></li>-->
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="搜索...">
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 dashbord-sidebar">
+          <ul class="nav nav-sidebar metisFolder">
+
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-tower"></span> &nbsp;
+                称重管理
+                <span class="glyphicon arrow"></span>
+              </a>
+              <ul>
+                <li>
+                  <a href="upload.html">
+                    <span class="glyphicon glyphicon-heart"></span> &nbsp;
+                    最新称重
+                  </a>
+                </li>
+                <li>
+                  <a href="page/record/recordList.html">
+                    <span class="glyphicon glyphicon-tint"></span> &nbsp;
+                    称重列表
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+            <a href="#">
+              <span class="glyphicon glyphicon-cog"></span> &nbsp;
+              系统管理
+              <span class="glyphicon arrow"></span>
+            </a>
+            <ul>
+              <li>
+                <a href="page/sys/deptList.html">
+                  <span class="glyphicon glyphicon-tree-deciduous"></span> &nbsp;
+                  部门管理
+                </a>
+              </li>
+              <li>
+                <a href="page/sys/userList.html">
+                  <span class="glyphicon glyphicon-user"></span> &nbsp;
+                  人员管理
+                </a>
+              </li>
+              <li>
+                <a href="page/sys/roleList.html">
+                  <span class="glyphicon glyphicon-eye-open"></span> &nbsp;
+                  角色管理
+                </a>
+              </li>
+            </ul>
+          </li>
+            <li>
+              <a href="page/log/systemlist.html">
+                <span class="glyphicon glyphicon-header"></span> &nbsp;
+                日志管理
+              </a>
+            </li>
+
+          </ul>
+        </div>
+        <!-- 内容区 -->
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 dashbord-main">
+          <h1>内容区</h1>
+        </div>
+      </div>
+    </div>
+    <!--[if lte IE 6]>
+    <script type="text/javascript" src="../script/bsie/js/bootstrap-ie.js"></script>
+    <![endif]-->
+  </body>
+<!-- JavaScript================================================== -->
+<!-- 放到文档最后，页面加载更快 -->
+
+<!-- jquery -->
+<script type="text/javascript" src="script/jquery-1.10.2.min.js"></script>
+<!-- bootstrap -->
+<script type="text/javascript" src="script/bootcss/3.2.0/js/bootstrap.min.js"></script>
+<!-- <script src="../script/assets/docs.min.js"></script> -->
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="script/assets/ie10-viewport-bug-workaround.js"></script>
+<!-- 菜单 -->
+<link rel="stylesheet" href="script/metisMenu/metisMenu.css">
+<script src="script/metisMenu/metisMenu.js"></script>
+<!-- jquery form -->
+<script type="text/javascript" src="script/form/jquery.form.js"></script>
+<!-- 数据表格 -->
+<link rel="stylesheet" href="script/dataTables/css/DT_bootstrap.css">
+<script type="text/javascript" src="script/dataTables/js/jquery.dataTables.js"></script>
+
+<script type="text/javascript" src="script/dataTables/js/DT_bootstrap.js"></script>
+
+<!-- select2 -->
+<script type="text/javascript" src="script/select2/select2.js"></script>
+<link rel="stylesheet" type="text/css"  href="script/select2/select2.css" />
+
+<!-- 输入框占位符 -->
+<script type="text/javascript" src="script/placeholder/placeholder.js"></script>
+<!-- 弹出框 -->
+<script type="text/javascript" src="script/bootbox/bootbox.js"></script>
+<!-- 输入验证 -->
+<script type="text/javascript" src="script/validate/validation.js"></script>
+<!-- 消息提醒 -->
+<link rel="stylesheet" href="script/messenger/css/messenger.css">
+<link rel="stylesheet" href="script/messenger/css/messenger-theme-air.css">
+<script type="text/javascript" src="script/messenger/js/messenger.min.js"></script>
+
+<!-- 日期选择框 -->
+<link rel="stylesheet" href="script/datepicker/css/datepicker.css">
+<script type="text/javascript" src="script/datepicker/js/bootstrap-datepicker.js"></script>
+
+<!-- 时间选择框 -->
+<link rel="stylesheet" href="script/timepicker/bootstrap-timepicker.min.css">
+<script type="text/javascript" src="script/timepicker/bootstrap-timepicker.js"></script>
+
+<!-- 日期时间选择 
+<link rel="stylesheet" href="../script/datetimepicker/css/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="../script/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+-->
+
+<!-- 时间段选择框 -->
+<link rel="stylesheet" href="script/daterangepicker/daterangepicker-bs2.css">
+<script type="text/javascript" src="script/daterangepicker/moment.min.js"></script>
+<script type="text/javascript" src="script/daterangepicker/daterangepicker.js"></script>
+
+<!-- 下拉选择框 -->
+<link type="text/css" rel="stylesheet" href="script/selectBoxIt/jquery.selectBoxIt.css" />
+<script type="text/javascript" src="script/jquery-ui/jquery-ui-widget.min.js"></script>
+<script type="text/javascript" src="script/selectBoxIt/jquery.selectBoxIt.min.js"></script>
+
+<!-- 多选下拉框 -->
+<link type="text/css" rel="stylesheet" href="script/multiselect/bootstrap-multiselect.css" />
+<script type="text/javascript" src="script/multiselect/bootstrap-multiselect.js"></script>
+
+<!-- 日历 -->
+<link type="text/css" rel="stylesheet" href="script/fullcalendar/fullcalendar.min.css" />
+<link type="text/css" rel="stylesheet" href="script/fullcalendar/fullcalendar.print.css" media='print'/>
+<script type="text/javascript" src="script/fullcalendar/fullcalendar.min.js"></script>
+<script type="text/javascript" src="script/fullcalendar/lang/zh-cn.js"></script>
+
+<!-- ip输入控制 -->
+<script type="text/javascript" src="script/inputmask/jquery.input-ip-address-control-1.0.js"></script>
+<!-- 其他输入控制 -->
+<script type="text/javascript" src="script/inputmask/jquery.inputmask.js"></script>
+
+<!-- ON/OFF切换组件 -->
+<link rel="stylesheet" href="script/switch/css/bootstrap-switch.min.css">
+<script type="text/javascript" src="script/switch/js/bootstrap-switch.min.js"></script>
+
+
+<!-- 上传 -->
+<link rel="stylesheet" href="script/fileupload/css/jquery.fileupload.css">
+<script type="text/javascript" src="script/fileupload/js/jquery.fileupload.js"></script>
+<script type="text/javascript" src="script/fileupload/js/jquery.iframe-transport.js"></script>
+
+<!-- zTree -->
+<link rel="stylesheet" href="script/ztree/css/zTreeStyle.css">
+<script type="text/javascript" src="script/ztree/js/jquery.ztree.all-3.5.js"></script>
+
+<!-- 图片展示 -->
+<link rel="stylesheet" href="script/lightbox/bootstrap-lightbox.css">
+<script type="text/javascript" src="script/lightbox/bootstrap-lightbox.js"></script>
+
+<!-- chart图表 -->
+<script type="text/javascript" src="script/chart/Chart.js"></script>
+
+<!-- 下拉选择树 -->
+<link rel="stylesheet" href="script/ztree/zTree_v3/css/demo.css" type="text/css">
+<link rel="stylesheet" href="script/ztree/zTree_v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script type="text/javascript" src="script/ztree/zTree_v3/js/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="script/ztree/zTree_v3/js/jquery.ztree.excheck-3.5.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	$('.metisFolder').metisMenu({});
+	placeholder();
+
+    // $.ajaxSetup({
+    //     complete: function(xhr){
+    //         console.log("########" + xhr.status);
+    //     },
+    //     error: function (xhr) {
+    //         console.log("error######" + xhr.status);
+    //     }
+    // });
+});
+</script>
+</html>

@@ -18,6 +18,7 @@
 	        <tr>
 	            <td>名称</td>
 	            <td>邮箱</td>
+	            <td>状态</td>
 	            <td>操作</td>
 	        </tr>
 	    </thead>
@@ -59,12 +60,26 @@
 			}, {
 				data : "email"
 			},{
+                data : "status",
+                render: function ( data, type, row ) {
+                    return "<div class='bootstrap-switch' ><input id='status_switch' type='checkbox' checked /></div>";
+                }
+            },{
                 data : "id",
                 width:"200",
                 render: function ( data, type, row ) {
                     return "<a href='#' onclick='update("+data+")'>编辑</a>";
                 }
             }]
+
+            // $('#status_switch').bootstrapSwitch({
+			// 	onText:'开',
+			// 	offText:'关',
+			// 	onColor:'info',		//值有:primary,info,success,warning,danger
+			// 	offColor:'success',
+			// 	animate:false,		//动画效果
+			// 	disabled:false		//不可用
+			// });
 		});
 
 		$("#searchBtn").click(function(){
@@ -73,7 +88,7 @@
 		
 		$("#addBtn").click(function(e){
 			userAddDialog = bootbox.extDialog({
-				load:"sys/userAdd.html",
+				load:"page/sys/userAdd.html",
 				title: "添加用户",
 				width: 800,
 				height: 400,
@@ -82,7 +97,7 @@
 						label: "保存",
 						className: "btn-success",      
 						callback: function() {
-                            $("#role_add_form").ajaxSubmit({
+                            $("#user_add_form").ajaxSubmit({
                                 url: "/admin/sys/user/save",
                                 type: "post",
                                 beforeSubmit: function(formData, jqForm, options) {

@@ -43,12 +43,12 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setLoginUrl("/login.html");
         Map<String, String> filterChainDefinitions = shiroFilterFactoryBean.getFilterChainDefinitionMap();
         filterChainDefinitions.put("/login", "anon");
-//        filterChainDefinitions.put("hi", "perms[hi]");
+        filterChainDefinitions.put("/index.html", "authc");
 //    anon：匿名权限，无需认证和授权直接可以访问
 //    authc：需要认证才可以访问
 //    authc, perms[maintain:*]：需要认证，且需要特定的权限授权才可以访问
 //    authc,roles[admin]：需要认证，且需要特定的角色授权才可以访问
-        filterChainDefinitions.put("/hi", "roles[hi]");
+        filterChainDefinitions.put("/admin/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitions);
         return shiroFilterFactoryBean;
     }

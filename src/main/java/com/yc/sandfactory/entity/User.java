@@ -80,7 +80,7 @@ public class User implements Serializable {
      * 状态
      */
     @Column("n_status")
-    private int status;
+    private int status = 1;
 
     /**
      * 修改时间
@@ -89,22 +89,16 @@ public class User implements Serializable {
     private Long updateTime;
 
     /**
-     * 性別0女1男
-     */
-    @Column("n_sex")
-    private Integer sex = 1;
-
-    /**
      * 所属部门ID
      */
     @Column("n_dept_id")
-    private Long deptId;
+    private Long deptId = 1L;
 
     /**
      * 所属角色
      */
     @Column("n_role_id")
-    private Long roleId;
+    private Long roleId = 1L;
 
     public Long getId() {
         return id;
@@ -200,14 +194,6 @@ public class User implements Serializable {
 
     public void setUpdateTime(Long updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public Integer getSex() {
-        return sex;
-    }
-
-    public void setSex(Integer sex) {
-        this.sex = sex;
     }
 
     public Long getDeptId() {
