@@ -29,9 +29,15 @@ public class User implements Serializable {
     private String name;
 
     /**
+     * 用户名
+     */
+    @Column("c_username")
+    private String username;
+
+    /**
      * 密码
      */
-    @Column("c_pwd")
+    @Column("c_password")
     private String password;
 
     /**
@@ -114,6 +120,22 @@ public class User implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPosition() {
@@ -202,13 +224,5 @@ public class User implements Serializable {
 
     public void setRoleId(Long roleId) {
         this.roleId = roleId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }
