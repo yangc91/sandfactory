@@ -3,7 +3,7 @@
     <!--
     查询条件
     票据编号：  xh
-    出入类型：  crlx ---    出厂 | 入场
+    出入类型：  crlx ---    出厂 | 进厂
     车号:       ch
     供货单位:   fh
     收货单位:   sh
@@ -16,15 +16,46 @@
 
     <div class="panel panel-default searchPanel">
         <div class="panel-body">
-            <form class="form-inline" role="form">
+            <form id="frm" class="form-inline" role="form">
                 <div class="form-group">
-                    <input type="text" class="form-control input-sm" id="roleName" placeholder="请输入角色名称">
+                    <input type="text" class="form-control input-sm" name="xh" placeholder="输入票据编号">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control input-sm" id="roleNote" placeholder="请输入角色备注">
+                <input type="text" class="form-control input-sm" name="ch" placeholder="输入车辆号码">
+            </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" name="sh" placeholder="输入收货单位">
                 </div>
-                <button type="button" id="searchBtn" class="btn btn-default btn-sm">搜索</button>
-                <button type="button" id="addBtn" class="btn btn-default btn-sm">添加</button>
+
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" name="fh" placeholder="输入供货单位">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" id="startTime1" name="startTime" placeholder="开始时间">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" id="endTime1" name="endTime" placeholder="结束时间">
+                </div>
+
+                <div class="form-group">
+                    <select id="crlx" name="crlx" style="width: 135px">
+                        <option></option>
+                        <option value="出厂">出厂</option>
+                        <option value="进厂">进厂</option>
+                    </select>
+                </div>
+
+                <!-- 搜索 -->
+                <!--<div class="btn-group search-text">-->
+                    <!--<input type="text" class="form-control border-radius4 w140" id="searchKey" reg="specialchar1" name="search" value="" placeholder="输入关键字搜索" is_tip_null="yes">-->
+                <!--</div>-->
+
+                <div class="btn-group">
+                    <button id="search" title="搜索" type="button" class="btn btn-default">搜索</button>
+                </div>
             </form>
         </div>
     </div>
@@ -59,25 +90,8 @@
     var roleAddDialog;
     var loadingDialog;
 
-    function checkRow(cb, event) {
-        event.stopPropagation();
-        var checked = $(cb).prop("checked");
-        if(checked) {
-            $(cb).parent().parent().addClass('selected');
-            var cascadeAll = true;
-            $("#example").find("input[name='id_checkbox']").each(function(){
-                if(!$(this).prop("checked")) {
-                    cascadeAll = false;
-                    return;
-                }
-            });
-            if(cascadeAll) {
-                $("#checkAll").prop("checked",true);
-            }
-        } else {
-            $(cb).parent().parent().removeClass('selected');
-            $("#checkAll").prop("checked",false);
-        }
+    function detailInfo(id) {
+        alert(id);
     }
 
     $(function() {
@@ -85,9 +99,17 @@
         //输入框placeholder的IE兼容处理
         placeholder();
         var tableHeight = calcDataTablesHeight($(".dashbord-main"), $(".searchPanel"));
-        var roleTable = $('#example').dataTable({
+        var table = $('#example').dataTable({
             scrollY : tableHeight,
-            ajax : "/record/list",
+            ajax : {
+                url: "/record/list",
+                type:"post",
+                data: function(req){
+                    $("#frm [name]").each(function(i, n) {
+                        req[$(n).attr("name")] = n.value;
+                    });
+                }
+            },
             columns : [{
                 data : "sandName",
                 orderSequence: [ "desc", "asc" ]
@@ -121,61 +143,161 @@
                 data : "shijian" // 时间
             },{
                 data: 'id',
-                render: function(data, type, full, meta) {
-                    //var result = '<span onClick="detailInfo(\'' + full + '\')">详细</span>';
-                    // TODO 展示
-                    return '详细';
+                width:"100",
+//                render: function(data, type, full, meta) {
+//                    //var result = '<span onClick="detailInfo(\'' + full + '\')">详细</span>';
+//                    // TODO 展示
+//                    return '详细';
+//                }
+                render: function ( data, type, row ) {
+                    return "<a href='#' onclick='detailInfo("+data+")'>详细</a>";
                 }
-            }],
-            ordering:false,
-            fnDrawCallback: function(oSettings) {
-                $("#checkAll").prop("checked",false);
-            }
+            }]
         });
 
-        function detailInfo(full) {
-            alert(full.id);
-        }
+        /**
+         * 下拉框
+         */
+        $("#crlx").select2({
+            placeholder: "出入类型",
+            minimumResultsForSearch: "Infinity"
+        });
 
+        $("#crlx").on("change", function(e) {
+            table.fnDraw();
+        });
 
-        $('#example tbody').on( 'click', 'tr', function () {
-            $(this).toggleClass('selected');
-            var thisCheck = $(this).find("input[name=id_checkbox]");
-            if(thisCheck.prop("checked")) {
-                thisCheck.prop("checked", false);
-                $("#checkAll").prop("checked",false);
-            } else {
-                thisCheck.prop("checked", true);
-                var cascadeAll = true;
-                $("#example").find("input[name='id_checkbox']").each(function(){
-                    if(!$(this).prop("checked")) {
-                        cascadeAll = false;
-                        return;
+        /**
+         * 日期插件datapicker使用
+         * @author  lal
+         */
+        var checkin = $('#startTime1').datepicker({
+            onRender: function(date) {
+                var result = '';
+                if (date) {
+                    if (($('#endTime1').val() && date.valueOf() > checkout.date.valueOf()) || (date.valueOf() > new Date().getTime())) result = 'disabled';
+                }
+                return result;
+            },
+            checkMonth: function(m, y) {
+                var _d = new Date();
+                var _y = _d.getFullYear();
+                var _m = _d.getMonth();
+                y = y ? y : _y;
+                if (checkout) {
+                    var cout = new Date(checkout.date.valueOf());
+                    var couty = cout.getFullYear();
+                    var coutm = cout.getMonth();
+                    if (y > couty) {
+                        return 'disabled';
+                    } else if (couty == y) {
+                        return m > coutm ? 'disabled' : '';
                     }
-                });
-                if(cascadeAll) {
-                    $("#checkAll").prop("checked",true);
                 }
+                if (y > _y) {
+                    return 'disabled';
+                } else if (y == _y) {
+                    return m > _m ? 'disabled' : '';
+                }
+                return '';
+            },
+            checkYear: function(year) {
+                var _d = new Date();
+                var _y = _d.getFullYear();
+                if (year > _y) {
+                    return 'disabled';
+                }
+                if (checkout) {
+                    var cout = new Date(checkout.date.valueOf());
+                    var couty = cout.getFullYear();
+                    if (year > couty) {
+                        return 'disabled';
+                    }
+                }
+                return '';
+            }
+        }).on('changeDate', function(ev) {
+            checkin.hide();
+            checkout.fillMonths();
+            checkout.update(ev.date.valueOf());
+            checkin.setValue(ev.date.valueOf());
+            table.fnDraw();
+        }).data('datepicker');
+
+        var checkout = $('#endTime1').datepicker({
+            onRender: function(date) {
+                var result = '';
+                if (date) {
+                    if (($('#startTime1').val() && date.valueOf() < checkin.date.valueOf()) || (date.valueOf() > new Date().getTime())) result = 'disabled';
+                }
+                return result;
+            },
+            checkMonth: function(m, y) {
+                var _d = new Date();
+                var _y = _d.getFullYear();
+                var _m = _d.getMonth();
+                y = y ? y : _y;
+                var cin = new Date(checkin.date.valueOf());
+                var ciny = cin.getFullYear();
+                var cinm = cin.getMonth();
+                if($('#startTime1').val()==''){
+                    ciny=1997;
+                }
+                if( y == _y){
+                    return ( m > _m) ? 'disabled' : '';
+                }
+                if (y < ciny || y > _y) {
+                    return 'disabled';
+                } else if (y == ciny ) {
+                    return ( m < cinm) ? 'disabled' : '';
+                }
+                return '';
+            },
+            checkYear: function(year) {
+                var _d = new Date();
+                var _y = _d.getFullYear();
+                var cin = new Date(checkin.date.valueOf());
+                var ciny = cin.getFullYear();
+                if($('#startTime1').val()==''){
+                    ciny=1997;
+                }
+                if (year < ciny || year > _y) {
+                    return 'disabled';
+                }
+                return '';
+            }
+        }).on('changeDate', function(ev) {
+            checkout.hide();
+            checkin.fillMonths();
+            checkin.update(ev.date.valueOf());
+            checkout.setValue(ev.date.valueOf());
+            table.fnDraw();
+        }).data('datepicker');
+
+
+//        $("#searchBtn").click(function(){
+//            roleTable.api()
+//                .column(1).search($("#roleName").val())
+//                .column(2).search($("#roleNote").val())
+//                .draw();
+//        });
+
+        /**
+         * 搜索列表
+         * @author fy
+         */
+        $("#search").click(function(){
+            table.fnDraw();
+        })
+        // 回车键搜索
+        $("#searchKey").keydown(function(event) {
+            var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+            if (keyCode == 13) {
+                $("#search").trigger('click');
+                return false;
             }
         });
 
-
-        $("#checkAll").click(function(){
-            var checked = $(this).prop("checked");
-            $("#example").find("input[name='id_checkbox']").prop("checked", checked);
-            if(checked) {
-                $('#example tbody tr').addClass("selected");
-            } else {
-                $('#example tbody tr').removeClass("selected");
-            }
-        });
-
-        $("#searchBtn").click(function(){
-            roleTable.api()
-                .column(1).search($("#roleName").val())
-                .column(2).search($("#roleNote").val())
-                .draw();
-        });
 
         $("#addBtn").click(function(e){
 
@@ -264,7 +386,7 @@
                 }
             });
 
-        });
+        })
 
     });
 </script>
