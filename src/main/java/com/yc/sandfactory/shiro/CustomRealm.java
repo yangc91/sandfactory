@@ -1,5 +1,8 @@
 package com.yc.sandfactory.shiro;
 
+import com.yc.sandfactory.entity.User;
+import com.yc.sandfactory.service.IUserService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -8,6 +11,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 
 import java.util.HashSet;
 import java.util.Set;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * TODO hsun 完成注释
@@ -17,6 +21,9 @@ import java.util.Set;
  * @since 2018/5/19 上午11:32
  */
 public class CustomRealm extends AuthorizingRealm {
+
+    @Autowired
+    private IUserService userService;
 
     /**
      * 授权
@@ -50,8 +57,18 @@ public class CustomRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String username = token.getUsername();
-        return new SimpleAuthenticationInfo(username, "111111", getName());
+        User user = userService.getUserByUserName(username);
+
+        if (null == user) {
+            throw new UnknownAccountException();
+        }
+
+        SecurityUtils.getSubject().getSession().setAttribute("USER_INFO", user);
+        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(username, user.getPassword(), getName());
+
+        return authenticationInfo;
     }
 }

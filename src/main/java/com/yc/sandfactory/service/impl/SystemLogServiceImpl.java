@@ -8,6 +8,7 @@ import com.yc.sandfactory.util.Constants;
 import com.yc.sandfactory.util.DateTimeUtil;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.nutz.dao.Cnd;
 import org.nutz.dao.impl.NutDao;
 import org.nutz.dao.pager.Pager;
@@ -65,8 +66,7 @@ public class SystemLogServiceImpl implements ISystemLogService {
   @Override
   public void addLog(String ip, Constants.ENUM_LOG_TYPE logType, String content) {
     SystemLog systemLog = new SystemLog();
-    //TODO,获取当前登录人
-    User user = new User();
+    User user = (User) SecurityUtils.getSubject().getSession().getAttribute("USER_INFO");
     systemLog.setManagerId(user.getId());
     systemLog.setManagerName(user.getName());
     systemLog.setManagerIp(ip);

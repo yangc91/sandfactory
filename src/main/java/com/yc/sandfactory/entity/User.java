@@ -29,6 +29,12 @@ public class User implements Serializable {
     private String name;
 
     /**
+     * 密码
+     */
+    @Column("c_pwd")
+    private String password;
+
+    /**
      * 职位
      */
     @Column("c_position")
@@ -196,5 +202,13 @@ public class User implements Serializable {
 
     public void setRoleId(Long roleId) {
         this.roleId = roleId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

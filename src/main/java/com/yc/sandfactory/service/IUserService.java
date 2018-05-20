@@ -25,6 +25,8 @@ public interface IUserService {
    */
   User getUser(int id);
 
+  User getUserByUserName(String name);
+
   void delUser(int id);
 
   User addUser(User user);
