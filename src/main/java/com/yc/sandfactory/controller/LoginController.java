@@ -1,6 +1,7 @@
 package com.yc.sandfactory.controller;
 
 import com.yc.sandfactory.bean.BaseResponse;
+import com.yc.sandfactory.entity.User;
 import com.yc.sandfactory.service.ISystemLogService;
 import com.yc.sandfactory.service.IUserService;
 import com.yc.sandfactory.util.Constants;
@@ -68,7 +69,14 @@ public class LoginController extends BaseControl {
   }
 
   @GetMapping("logout")
-  public void logout(HttpServletResponse response) {
+  public void logout(HttpServletRequest request, HttpServletResponse response) {
+    try {
+      User user = (User) SecurityUtils.getSubject().getSession().getAttribute("USER_INFO");
+      systemLogService.addLog(request.getRemoteAddr(), Constants.ENUM_LOG_TYPE.logoutLog,
+          "【" + user.getUsername() + "】注销成功");
+    } catch (Exception e) {
+      logger.error("记录退出日志出现异常", e);
+    }
     SecurityUtils.getSubject().logout();
     try {
       response.sendRedirect("/login.html");
