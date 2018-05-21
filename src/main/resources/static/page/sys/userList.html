@@ -17,8 +17,9 @@
 	    <thead>
 	        <tr>
 	            <td>名称</td>
+	            <td>用户名</td>
+	            <td>手机号</td>
 	            <td>邮箱</td>
-	            <td>状态</td>
 	            <td>操作</td>
 	        </tr>
 	    </thead>
@@ -27,12 +28,70 @@
 
 <script type="text/javascript">
 
-	var userAddDialog;
-	var loadingDialog;
+	var userTable, userAddDialog, userUpdateDialog, loadingDialog;
 
-	function update(id) {
-	    alert(id);
-	}
+    function update(id) {
+        userUpdateDialog = bootbox.extDialog({
+            load:"page/sys/userUpdate.html",
+            title: "编辑用户",
+            width: 800,
+            height: 400,
+            callback:function() {
+                $.ajax({
+                    url:'/admin/sys/user/get?id='+id,
+                    success:function(data) {
+                        $.each(data,function(i, o){
+                            $("#"+i).val(o);
+                        });
+                    }
+                });
+            },
+            buttons: {
+                success: {
+                    label: "保存",
+                    className: "btn-success",
+                    callback: function() {
+                        $("#user_update_form").ajaxSubmit({
+                            url: "/admin/sys/user/update",
+                            type: "post",
+                            beforeSubmit: function(formData, jqForm, options) {
+                                var valid = jqForm.validate();
+                                if(valid) {
+                                    loadingDialog = bootbox.loading("正在提交...");
+                                }
+                                return valid;
+                            },
+                            timeout: 6000,
+                            success: function(response, status, xhr){
+                                bootbox.hide(loadingDialog);
+                                //alert(response + status + xhr.status);
+                                Messenger({extraClasses: 'messenger-fixed messenger-on-top'}).post({
+                                    message:"保存成功",
+                                    hideAfter: 3
+                                });
+                                bootbox.hide(userUpdateDialog);
+                                userTable.api().draw();
+                            },
+                            error : function() {
+                                bootbox.hide(loadingDialog);
+                                // alert("超时");
+                            }
+                        });
+                    }
+                },
+                close:{
+                    label:"关闭",
+                    className:"btn-danger",
+                    callback: function(e) {
+                        bootbox.hide(userUpdateDialog);
+                        return false;
+                    }
+                }
+
+            }
+        });
+    }
+
 
 	function del(id) {
 
@@ -45,7 +104,7 @@
 
 		var tableHeight = calcDataTablesHeight($(".dashbord-main"), $(".searchPanel"));
 
-		var userTable = $('#user_table').dataTable({
+		userTable = $('#user_table').dataTable({
 			scrollY : tableHeight,
 			ajax : {
 			    url:"/admin/sys/user/list",
@@ -58,12 +117,16 @@
 			columns : [ {
 				data : "name"
 			}, {
-				data : "email"
-			},{
-                data : "status",
-                render: function ( data, type, row ) {
-                    return "<div class='bootstrap-switch' ><input id='status_switch' type='checkbox' checked /></div>";
-                }
+				data : "username"
+            }, {
+                data : "mobileTel"
+            }, {
+                data : "email"
+			// },{
+             //    data : "status",
+             //    render: function ( data, type, row ) {
+             //        return "<div class='bootstrap-switch' ><input id='status_switch' type='checkbox' " + (data==1?"checked":"") + "/></div>";
+             //    }
             },{
                 data : "id",
                 width:"200",
@@ -71,15 +134,20 @@
                     return "<a href='#' onclick='update("+data+")'>编辑</a>";
                 }
             }]
+            // ,fnDrawCallback: function(oSettings) {
+            //     $('.bootstrap-switch input').bootstrapSwitch({
+            //     	onText:'启用',
+            //     	offText:'禁用',
+            //     	onColor:'success',		//值有:primary,info,success,warning,danger
+            //     	offColor:'warning',
+            //     	animate:false,		//动画效果
+            //     	disabled:false		//不可用
+            //     });
+            //     $('.bootstrap-switch input').on('switchChange.bootstrapSwitch', function(event, state) {
+            //         alert(state); // true | false
+            //     });
+            // }
 
-            // $('#status_switch').bootstrapSwitch({
-			// 	onText:'开',
-			// 	offText:'关',
-			// 	onColor:'info',		//值有:primary,info,success,warning,danger
-			// 	offColor:'success',
-			// 	animate:false,		//动画效果
-			// 	disabled:false		//不可用
-			// });
 		});
 
 		$("#searchBtn").click(function(){

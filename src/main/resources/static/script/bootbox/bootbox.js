@@ -770,7 +770,11 @@
 	    var callbacks = {
 	      onEscape: options.onEscape
 	    };
-	    
+	    //TODO add by hsun
+	    var _callback = options.callback;
+        if (_callback && typeof _callback === "function") {
+            _callback();
+        }
 	    //拼装按钮
 	    each(buttons, function(key, button) {
 
@@ -808,6 +812,7 @@
 	    	      var callbackKey = $(this).data("bb-handler");
 	    	      processCallback(e, dialog, callbacks[callbackKey]);
 	    	    });
+
 	    	} else if(xhr.status === 404) {
 	    		//找不着
 	    		bootbox_body.html('<img src="../../theme/default/images/public/404.jpg">');

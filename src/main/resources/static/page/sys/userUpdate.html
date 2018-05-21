@@ -1,0 +1,58 @@
+<form class="form-horizontal" role="form" id="user_update_form">
+  <input type="hidden" name="id" id="id">
+  <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">名称</label>
+    <div class="col-sm-3">
+      <input type="text" name="name" class="form-control" id="name" placeholder="请输入名称"
+      	validate-tags="required" validate-minLength="2" validate-message="{required:'此项必填!'}">
+    </div>
+    <label for="position" class="col-sm-2 control-label">职位</label>
+    <div class="col-sm-3">
+      <input type="text" name="position" class="form-control" id="position" placeholder="请输入职位">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="username" class="col-sm-2 control-label">用户名</label>
+    <div class="col-sm-3">
+      <input type="text" name="username" class="form-control" id="username" placeholder="请输入用户名"
+             validate-tags="required char" validate-message="{required:'用户名不能为空',char:'必须是英文字符和下划线' }">
+    </div>
+    <label for="password" class="col-sm-2 control-label">密码</label>
+    <div class="col-sm-3">
+      <input type="password" name="password" class="form-control" id="password" placeholder="请输入密码"
+             validate-tags="required" validate-minLength="2" validate-message="{required:'此项必填!'}">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="tel" class="col-sm-2 control-label">电话</label>
+    <div class="col-sm-3">
+      <input type="text" name="tel" class="form-control" id="tel" placeholder="请输入电话">
+    </div>
+    <label for="mobileTel" class="col-sm-2 control-label">手机号</label>
+    <div class="col-sm-3">
+      <input type="text" name="mobileTel" class="form-control" id="mobileTel" placeholder="请输入手机号">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="email" class="col-sm-2 control-label">邮箱</label>
+    <div class="col-sm-3">
+      <input type="text" name="email" class="form-control" id="email" placeholder="请输入邮箱"
+             validate-tags="mail" validate-message="{mail:'请输入正确的邮箱格式!'}">
+    </div>
+
+  </div>
+
+  <!--roleId-->
+  <!--deptId-->
+</form>
+<script type="text/javascript">
+	$(function(){
+		//输入框placeholder的IE兼容处理
+		placeholder();
+		//初始化表单验证
+		$("#user_update_form").validation();
+	})
+</script>

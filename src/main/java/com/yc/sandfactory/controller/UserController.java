@@ -100,14 +100,23 @@ public class UserController {
 
     @RequestMapping(value = "/update")
     public Object update(User user, HttpServletRequest request) throws JsonProcessingException {
-
         logger.info("user update：输入参数：{}",
             JsonMapperProvide.alwaysMapper().writeValueAsString(user));
+
+        User oldUser = this.userService.getUser(user.getId());
+        oldUser.setName(user.getName());
+        oldUser.setUsername(user.getUsername());
+        oldUser.setPassword(user.getPassword());
+        oldUser.setPosition(user.getPosition());
+        oldUser.setTel(user.getTel());
+        oldUser.setMobileTel(user.getMobileTel());
+        oldUser.setEmail(user.getEmail());
+
         Map<String, Object> result = new HashMap<>();
         result.put("success", "false");
 
         try {
-            userService.updateUser(user);
+            userService.updateUser(oldUser);
             result.put("success", "true");
             systemLogService.addLog(request.getRemoteAddr(), Constants.ENUM_LOG_TYPE.userManagerLog, "修改用户【 " +user.getName()+ "】成功");
         } catch (Exception e) {

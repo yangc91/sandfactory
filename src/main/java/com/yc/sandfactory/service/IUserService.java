@@ -23,11 +23,11 @@ public interface IUserService {
    * @param id
    * @return
    */
-  User getUser(int id);
+  User getUser(long id);
 
   User getUserByUserName(String name);
 
-  void delUser(int id);
+  void delUser(long id);
 
   User addUser(User user);
 

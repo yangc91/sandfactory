@@ -47,7 +47,7 @@ public class UserServiceImpl implements IUserService {
   }
 
   @Override
-  public User getUser(int id) {
+  public User getUser(long id) {
     return nutDao.fetch(User.class, id);
   }
 
@@ -57,7 +57,7 @@ public class UserServiceImpl implements IUserService {
   }
 
   @Override
-  public void delUser(int id) {
+  public void delUser(long id) {
     nutDao.delete(User.class, id);
   }
 
