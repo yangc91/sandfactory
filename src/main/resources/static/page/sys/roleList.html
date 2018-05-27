@@ -29,6 +29,14 @@
 	var roleAddDialog;
 	var loadingDialog;
 
+	function enter(event) {
+		var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+		if (keyCode == 13) {
+			$("#searchBtn").trigger('click');
+			return false;
+		}
+	};
+
 	$(function() {
 
 		//输入框placeholder的IE兼容处理
@@ -61,6 +69,11 @@
 
 		$("#searchBtn").click(function(){
             roleTable.api().draw();
+		});
+
+		// 回车键搜索
+		$("#roleName").keydown(function(event) {
+			enter(event)
 		});
 		
 		$("#addBtn").click(function(e){

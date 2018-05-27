@@ -92,7 +92,15 @@
 
     function detailInfo(id) {
         alert(id);
-    }
+    };
+
+    function enter(event) {
+        var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+        if (keyCode == 13) {
+            $("#search").trigger('click');
+            return false;
+        }
+    };
 
     $(function() {
 
@@ -290,12 +298,17 @@
             table.fnDraw();
         })
         // 回车键搜索
-        $("#searchKey").keydown(function(event) {
-            var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
-            if (keyCode == 13) {
-                $("#search").trigger('click');
-                return false;
-            }
+        $("input[name='xh']").keydown(function(event) {
+            enter(event)
+        });
+        $("input[name='ch']").keydown(function(event) {
+            enter(event)
+        });
+        $("input[name='sh']").keydown(function(event) {
+            enter(event)
+        });
+        $("input[name='fh']").keydown(function(event) {
+            enter(event)
         });
 
 
