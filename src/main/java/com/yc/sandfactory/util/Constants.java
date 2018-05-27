@@ -16,13 +16,18 @@ public class Constants {
      */
     logoutLog(2),
     /**
-     * 运行日志类型
+     * 人员管理
      */
     userManagerLog(3),
     /**
-     * 安全日志类型
+     * 角色管理
      */
-    roleManagerLog(4);
+    roleManagerLog(4),
+
+    /**
+     * 监控管理
+     */
+    videoManagerLog(5);
 
 
     public Integer value;

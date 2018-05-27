@@ -5,7 +5,7 @@
       startTime:  yy-MM-dd
       endTime： yy-MM-dd
       （后台自动处理了时分秒）
-  日志类型： action  1-登录 2-退出 操作日志：3-人员管理 4-角色管理',
+  日志类型： action  1-登录 2-退出 操作日志：3-人员管理 4-角色管理,5-监控管理
   search: 关键字搜索  日志内容模糊查询
   -->
 
@@ -29,6 +29,7 @@
             <option value="2">退出</option>
             <option value="3">人员管理</option>
             <option value="4">角色管理</option>
+            <option value="5">监控管理</option>
           </select>
         </div>
 
@@ -118,7 +119,7 @@
       }, {
         data : "action",
         render:function(data) {
-          var type = {"1": "登录日志", "2":"退出日志","3":"人员管理","3":"角色管理"};
+          var type = {"1": "登录日志", "2":"退出日志","3":"人员管理","4":"角色管理","5":"监控管理"};
           return type[data] || "--";
         }
       }, {

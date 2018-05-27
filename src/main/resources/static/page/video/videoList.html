@@ -1,0 +1,276 @@
+<div id="test" data-toggle="context" data-target="#context-menu">
+
+    <div class="panel panel-default searchPanel">
+        <div class="panel-body">
+            <form id="frm" class="form-inline" role="form">
+                <div class="btn-group search-text">
+                    <input type="text" class="form-control border-radius4 w140" id="searchKey" reg="specialchar1" name="searchKey" value="" placeholder="输入关键字搜索" is_tip_null="yes">
+                </div>
+
+                <div class="btn-group">
+                    <button id="search" title="搜索" type="button" class="btn btn-default">搜索</button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" id="addBtn" class="btn btn-default ">添加</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 表格栏 -->
+    <table id="example" class="table table-striped table-bordered" border="0" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <td>名称</td>
+            <td>通道</td>
+            <td>所属沙场</td>
+            <td>所属工作站</td>
+            <td>所属地磅</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+<script type="text/javascript">
+
+    var table, addDialog, loadingDialog;
+
+    function detailInfo(id) {
+        alert(id);
+    }
+
+    $(function() {
+
+        //输入框placeholder的IE兼容处理
+        placeholder();
+        var tableHeight = calcDataTablesHeight($(".dashbord-main"), $(".searchPanel"));
+        table = $('#example').dataTable({
+            scrollY : tableHeight,
+            ajax : {
+                url: "/video/list",
+                type:"post",
+                data: function(req){
+                    $("#frm [name]").each(function(i, n) {
+                        req[$(n).attr("name")] = n.value;
+                    });
+                }
+            },
+            columns : [{
+                data : "name"
+            }, {
+                data : "channel"
+            },{
+                data : "sandName"
+            }, {
+                data : "workName"
+            }, {
+                data : "truckName"
+            },{
+                data : "channel",
+                width:"200",
+                render: function ( data, type, row ) {
+                    return "<a href='http://localhost:10800/play.html?channel=" + data + "' target='_blank'>查看</a>";
+                }
+            }]
+        });
+
+        /**
+         * 下拉框
+         */
+        $("#crlx").select2({
+            placeholder: "出入类型",
+            minimumResultsForSearch: "Infinity"
+        });
+
+        $("#crlx").on("change", function(e) {
+            table.fnDraw();
+        });
+
+        /**
+         * 日期插件datapicker使用
+         * @author  lal
+         */
+        var checkin = $('#startTime1').datepicker({
+            onRender: function(date) {
+                var result = '';
+                if (date) {
+                    if (($('#endTime1').val() && date.valueOf() > checkout.date.valueOf()) || (date.valueOf() > new Date().getTime())) result = 'disabled';
+                }
+                return result;
+            },
+            checkMonth: function(m, y) {
+                var _d = new Date();
+                var _y = _d.getFullYear();
+                var _m = _d.getMonth();
+                y = y ? y : _y;
+                if (checkout) {
+                    var cout = new Date(checkout.date.valueOf());
+                    var couty = cout.getFullYear();
+                    var coutm = cout.getMonth();
+                    if (y > couty) {
+                        return 'disabled';
+                    } else if (couty == y) {
+                        return m > coutm ? 'disabled' : '';
+                    }
+                }
+                if (y > _y) {
+                    return 'disabled';
+                } else if (y == _y) {
+                    return m > _m ? 'disabled' : '';
+                }
+                return '';
+            },
+            checkYear: function(year) {
+                var _d = new Date();
+                var _y = _d.getFullYear();
+                if (year > _y) {
+                    return 'disabled';
+                }
+                if (checkout) {
+                    var cout = new Date(checkout.date.valueOf());
+                    var couty = cout.getFullYear();
+                    if (year > couty) {
+                        return 'disabled';
+                    }
+                }
+                return '';
+            }
+        }).on('changeDate', function(ev) {
+            checkin.hide();
+            checkout.fillMonths();
+            checkout.update(ev.date.valueOf());
+            checkin.setValue(ev.date.valueOf());
+            table.fnDraw();
+        }).data('datepicker');
+
+        var checkout = $('#endTime1').datepicker({
+            onRender: function(date) {
+                var result = '';
+                if (date) {
+                    if (($('#startTime1').val() && date.valueOf() < checkin.date.valueOf()) || (date.valueOf() > new Date().getTime())) result = 'disabled';
+                }
+                return result;
+            },
+            checkMonth: function(m, y) {
+                var _d = new Date();
+                var _y = _d.getFullYear();
+                var _m = _d.getMonth();
+                y = y ? y : _y;
+                var cin = new Date(checkin.date.valueOf());
+                var ciny = cin.getFullYear();
+                var cinm = cin.getMonth();
+                if($('#startTime1').val()==''){
+                    ciny=1997;
+                }
+                if( y == _y){
+                    return ( m > _m) ? 'disabled' : '';
+                }
+                if (y < ciny || y > _y) {
+                    return 'disabled';
+                } else if (y == ciny ) {
+                    return ( m < cinm) ? 'disabled' : '';
+                }
+                return '';
+            },
+            checkYear: function(year) {
+                var _d = new Date();
+                var _y = _d.getFullYear();
+                var cin = new Date(checkin.date.valueOf());
+                var ciny = cin.getFullYear();
+                if($('#startTime1').val()==''){
+                    ciny=1997;
+                }
+                if (year < ciny || year > _y) {
+                    return 'disabled';
+                }
+                return '';
+            }
+        }).on('changeDate', function(ev) {
+            checkout.hide();
+            checkin.fillMonths();
+            checkin.update(ev.date.valueOf());
+            checkout.setValue(ev.date.valueOf());
+            table.fnDraw();
+        }).data('datepicker');
+
+
+//        $("#searchBtn").click(function(){
+//            roleTable.api()
+//                .column(1).search($("#roleName").val())
+//                .column(2).search($("#roleNote").val())
+//                .draw();
+//        });
+
+        /**
+         * 搜索列表
+         * @author fy
+         */
+        $("#search").click(function(){
+            table.fnDraw();
+        })
+        // 回车键搜索
+        $("#searchKey").keydown(function(event) {
+            var keyCode = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+            if (keyCode == 13) {
+                $("#search").trigger('click');
+                return false;
+            }
+        });
+
+
+        $("#addBtn").click(function(e){
+            addDialog = bootbox.extDialog({
+                load:"page/video/videoAdd.html",
+                title: "添加监控",
+                width: 800,
+                height: 400,
+                buttons: {
+                    success: {
+                        label: "保存",
+                        className: "btn-success",
+                        callback: function() {
+                            $("#video_add_form").ajaxSubmit({
+                                url: "/video/save",
+                                type: "post",
+                                beforeSubmit: function(formData, jqForm, options) {
+                                    var valid = jqForm.validate();
+                                    if(valid) {
+                                        loadingDialog = bootbox.loading("正在提交...");
+                                    }
+                                    return valid;
+                                },
+                                timeout: 6000,
+                                success: function(response, status, xhr){
+                                    bootbox.hide(loadingDialog);
+                                    //alert(response + status + xhr.status);
+                                    Messenger({extraClasses: 'messenger-fixed messenger-on-top'}).post({
+                                        message:"保存成功",
+                                        hideAfter: 3
+                                    });
+                                    bootbox.hide(addDialog);
+                                    table.api().draw();
+                                },
+                                error : function() {
+                                    bootbox.hide(loadingDialog);
+                                    // alert("超时");
+                                }
+                            });
+                        }
+                    },
+                    close:{
+                        label:"关闭",
+                        className:"btn-danger",
+                        callback: function(e) {
+                            bootbox.hide(addDialog);
+                            return false;
+                        }
+                    }
+
+                }
+            });
+
+        });
+
+    });
+</script>

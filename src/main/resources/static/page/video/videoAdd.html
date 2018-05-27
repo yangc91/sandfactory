@@ -1,0 +1,45 @@
+<form class="form-horizontal" role="form" id="video_add_form">
+  <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">名称</label>
+    <div class="col-sm-3">
+      <input type="text" name="name" class="form-control" id="name" placeholder="请输入名称"
+      	validate-tags="required" validate-minLength="2" validate-message="{required:'此项必填!'}">
+    </div>
+    <label for="channel" class="col-sm-2 control-label">通道</label>
+    <div class="col-sm-3">
+      <input type="text" name="channel" class="form-control" id="channel" placeholder="请输入通道"
+         validate-tags="required" validate-minLength="1" validate-message="{required:'此项必填!'}">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="sandName" class="col-sm-2 control-label">所属沙场</label>
+    <div class="col-sm-3">
+      <input type="text" name="sandName" class="form-control" id="sandName" placeholder="请输入沙场名"
+             validate-tags="required" validate-message="{required:'此项必填'}">
+    </div>
+    <label for="workName" class="col-sm-2 control-label">工作站</label>
+    <div class="col-sm-3">
+      <input type="text" name="workName" class="form-control" id="workName" placeholder="请输入工作站名称"
+             validate-tags="required" validate-minLength="2" validate-message="{required:'此项必填!'}">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="truckName" class="col-sm-2 control-label">地磅</label>
+    <div class="col-sm-3">
+      <input type="text" name="truckName" class="form-control" id="truckName" placeholder="请输入地磅名称"
+             validate-tags="required" validate-minLength="2" validate-message="{required:'此项必填!'}">
+    </div>
+  </div>
+
+  </div>
+</form>
+<script type="text/javascript">
+	$(function(){
+		//输入框placeholder的IE兼容处理
+		placeholder();
+		//初始化表单验证
+		$("#video_add_form").validation();
+	})
+</script>

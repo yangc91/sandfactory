@@ -90,12 +90,13 @@ public class UserController {
         result.put("success", "false");
         try {
             userService.addUser(user);
+            result.put("success", "true");
             systemLogService.addLog(request.getRemoteAddr(), Constants.ENUM_LOG_TYPE.userManagerLog, "添加用户【 " +user.getName()+ "】成功");
         } catch (Exception e) {
             logger.error("添加用户出错", e);
         }
 
-        return user;
+        return result;
     }
 
     @RequestMapping(value = "/update")

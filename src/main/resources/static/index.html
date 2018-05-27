@@ -1,161 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <title>xxx管理平台</title>
+  <title>称重管理平台</title>
 
-	<style type="text/css">
-		@-ms-viewport{ width: device-width; }
-		body{overflow: hidden;}
-		.panel{margin-bottom: 0 !important;}
-		.panel-body{padding: 6px !important;}
-		.modal-body{overflow-y: auto;overflow-x:hidden; }
-		.modal-footer{margin-top: 0 !important;}
-	</style>
+  <style type="text/css">
+    @-ms-viewport{ width: device-width; }
+    body{overflow: hidden;}
+    .panel{margin-bottom: 0 !important;}
+    .panel-body{padding: 6px !important;}
+    .modal-body{overflow-y: auto;overflow-x:hidden; }
+    .modal-footer{margin-top: 0 !important;}
+  </style>
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="script/bootcss/3.2.0/css/bootstrap.css">
-    <!-- 管理平台样式 -->
-	<link rel="stylesheet" href="theme/default/css/public/dashboard.css">
-	
-    <script src="script/assets/ie-emulation-modes-warning.js"></script>
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="script/bootcss/3.2.0/css/bootstrap.css">
+  <!-- 管理平台样式 -->
+  <link rel="stylesheet" href="theme/default/css/public/dashboard.css">
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="script/assets/html5shiv.min.js"></script>
-      <script src="script/assets/respond.min.js"></script>
-    <![endif]-->
-    
-    
-    <!--[if lte IE 6]>
-    <link rel="stylesheet" type="text/css" href="script/bsie/bootstrap/css/bootstrap-ie6.css">
-    <![endif]-->
-    <!--[if lte IE 7]>
-    <link rel="stylesheet" type="text/css" href="script/bsie/bootstrap/css/ie.css">
-    <![endif]-->
-    
-    
-  </head>
+  <script src="script/assets/ie-emulation-modes-warning.js"></script>
 
-  <body>
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="script/assets/html5shiv.min.js"></script>
+  <script src="script/assets/respond.min.js"></script>
+  <![endif]-->
 
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">称重管理平台</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <!--<li><a href="#">消息</a></li>-->
-            <!--<li><a href="#">设置</a></li>-->
-            <li><a href="/logout">退出</a></li>
-            <!--<li><a href="#"><font id="tour-test3">帮助</font></a></li>-->
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="搜索...">
-          </form>
-        </div>
-      </div>
-    </nav>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 dashbord-sidebar">
-          <ul class="nav nav-sidebar metisFolder">
+  <!--[if lte IE 6]>
+  <link rel="stylesheet" type="text/css" href="script/bsie/bootstrap/css/bootstrap-ie6.css">
+  <![endif]-->
+  <!--[if lte IE 7]>
+  <link rel="stylesheet" type="text/css" href="script/bsie/bootstrap/css/ie.css">
+  <![endif]-->
 
-            <li>
-              <a href="#">
-                <span class="glyphicon glyphicon-tower"></span> &nbsp;
-                称重管理
-                <span class="glyphicon arrow"></span>
-              </a>
-              <ul>
-                <li>
-                  <a href="upload.html">
-                    <span class="glyphicon glyphicon-heart"></span> &nbsp;
-                    最新称重
-                  </a>
-                </li>
-                <li>
-                  <a href="page/record/recordList.html">
-                    <span class="glyphicon glyphicon-tint"></span> &nbsp;
-                    称重列表
-                  </a>
-                </li>
-              </ul>
-            </li>
 
-            <li>
-              <a href="#">
-                <span class="glyphicon glyphicon-th-large"></span> &nbsp;
-                沙场管理
-              </a>
-            </li>
+</head>
 
-            <li>
-              <a href="#">
-                <span class="glyphicon glyphicon-facetime-video"></span> &nbsp;
-                视频
-              </a>
-            </li>
+<body>
 
-            <li>
-            <a href="#">
-              <span class="glyphicon glyphicon-cog"></span> &nbsp;
-              系统管理
-              <span class="glyphicon arrow"></span>
-            </a>
-            <ul>
-              <!--<li>-->
-                <!--<a href="page/sys/deptList.html">-->
-                  <!--<span class="glyphicon glyphicon-tree-deciduous"></span> &nbsp;-->
-                  <!--部门管理-->
-                <!--</a>-->
-              <!--</li>-->
-              <li>
-                <a href="page/sys/userList.html">
-                  <span class="glyphicon glyphicon-user"></span> &nbsp;
-                  人员管理
-                </a>
-              </li>
-              <li>
-                <a href="page/sys/roleList.html">
-                  <span class="glyphicon glyphicon-eye-open"></span> &nbsp;
-                  角色管理
-                </a>
-              </li>
-            </ul>
-          </li>
-            <li>
-              <a href="page/log/systemlist.html">
-                <span class="glyphicon glyphicon-header"></span> &nbsp;
-                日志管理
-              </a>
-            </li>
-
-          </ul>
-        </div>
-        <!-- 内容区 -->
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 dashbord-main">
-          <h1>内容区</h1>
-        </div>
-      </div>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">称重管理平台</a>
     </div>
-    <!--[if lte IE 6]>
-    <script type="text/javascript" src="../script/bsie/js/bootstrap-ie.js"></script>
-    <![endif]-->
-  </body>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <!--<li><a href="#">消息</a></li>-->
+        <!--<li><a href="#">设置</a></li>-->
+        <li><a href="/logout">退出</a></li>
+        <!--<li><a href="#"><font id="tour-test3">帮助</font></a></li>-->
+      </ul>
+      <!--<form class="navbar-form navbar-right">-->
+        <!--<input type="text" class="form-control" placeholder="搜索...">-->
+      <!--</form>-->
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 dashbord-sidebar">
+      <ul class="nav nav-sidebar metisFolder">
+
+        <li>
+          <a href="#">
+            <span class="glyphicon glyphicon-tower"></span> &nbsp;
+            称重管理
+            <span class="glyphicon arrow"></span>
+          </a>
+          <ul>
+            <li >
+              <a href="upload.html">
+                <span class="glyphicon glyphicon-heart"></span> &nbsp;
+                最新称重
+              </a>
+            </li>
+            <li class="active">
+              <a href="page/record/recordList.html">
+                <span class="glyphicon glyphicon-tint"></span> &nbsp;
+                称重列表
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">
+            <span class="glyphicon glyphicon-th-large"></span> &nbsp;
+            沙场管理
+          </a>
+        </li>
+
+        <li>
+          <a href="page/video/videoList.html">
+            <span class="glyphicon glyphicon-facetime-video"></span> &nbsp;
+            监控
+          </a>
+        </li>
+
+        <li>
+          <a href="#">
+            <span class="glyphicon glyphicon-cog"></span> &nbsp;
+            系统管理
+            <span class="glyphicon arrow"></span>
+          </a>
+          <ul>
+            <!--<li>-->
+            <!--<a href="page/sys/deptList.html">-->
+            <!--<span class="glyphicon glyphicon-tree-deciduous"></span> &nbsp;-->
+            <!--部门管理-->
+            <!--</a>-->
+            <!--</li>-->
+            <li>
+              <a href="page/sys/userList.html">
+                <span class="glyphicon glyphicon-user"></span> &nbsp;
+                人员管理
+              </a>
+            </li>
+            <li>
+              <a href="page/sys/roleList.html">
+                <span class="glyphicon glyphicon-eye-open"></span> &nbsp;
+                角色管理
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="page/log/systemlist.html">
+            <span class="glyphicon glyphicon-header"></span> &nbsp;
+            日志管理
+          </a>
+        </li>
+
+      </ul>
+    </div>
+    <!-- 内容区 -->
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 dashbord-main">
+    </div>
+  </div>
+</div>
+<!--[if lte IE 6]>
+<script type="text/javascript" src="../script/bsie/js/bootstrap-ie.js"></script>
+<![endif]-->
+</body>
 <!-- JavaScript================================================== -->
 <!-- 放到文档最后，页面加载更快 -->
 
@@ -200,7 +199,7 @@
 <link rel="stylesheet" href="script/timepicker/bootstrap-timepicker.min.css">
 <script type="text/javascript" src="script/timepicker/bootstrap-timepicker.js"></script>
 
-<!-- 日期时间选择 
+<!-- 日期时间选择
 <link rel="stylesheet" href="../script/datetimepicker/css/bootstrap-datetimepicker.min.css">
 <script type="text/javascript" src="../script/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 -->
@@ -258,9 +257,10 @@
 <script type="text/javascript" src="script/ztree/zTree_v3/js/jquery.ztree.excheck-3.5.js"></script>
 
 <script type="text/javascript">
-$(function(){
-	$('.metisFolder').metisMenu({});
-	placeholder();
+  $(function(){
+    $('.metisFolder').metisMenu({});
+    $('.metisFolder').find("li.active").children("a").trigger('click');
+    placeholder();
 
     // $.ajaxSetup({
     //     complete: function(xhr){
@@ -270,6 +270,6 @@ $(function(){
     //         console.log("error######" + xhr.status);
     //     }
     // });
-});
+  });
 </script>
 </html>
