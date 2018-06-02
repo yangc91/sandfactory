@@ -17,8 +17,6 @@ import org.nutz.dao.sql.SqlCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -33,9 +31,6 @@ public class DataCollectionTask implements Runnable {
   // 操作本地数据库
   @Autowired
   private NutDao nutDao;
-
-  @Autowired
-  private JedisPool jedisPool;
 
   // 沙场
   private String sandName;
@@ -254,13 +249,6 @@ public class DataCollectionTask implements Runnable {
       for (ChengZhongRecord czrd: czrdList ) {
         // 存入本地数据库
         czRecord = nutDao.insert(czrd);
-
-        Jedis jedis = jedisPool.getResource();
-        List<String> msgIdList = jedis.lrange("sf_user_msg_id", 0, -1);
-        for (String msgId : msgIdList ) {
-          jedis.rpush(msgId, JsonMapperProvide.alwaysMapper().writeValueAsString(czRecord));
-        }
-        jedis.close();
       }
 
     } catch (Exception e) {

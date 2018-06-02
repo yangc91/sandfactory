@@ -13,8 +13,6 @@ import org.apache.shiro.subject.PrincipalCollection;
 import java.util.HashSet;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 
 /**
  * TODO hsun 完成注释
@@ -27,9 +25,6 @@ public class CustomRealm extends AuthorizingRealm {
 
     @Autowired
     private IUserService userService;
-
-    @Autowired
-    private JedisPool jedisPool;
 
     /**
      * 授权
@@ -72,15 +67,6 @@ public class CustomRealm extends AuthorizingRealm {
         if (null == user) {
             throw new UnknownAccountException();
         }
-
-        String msgId = UUID.randomUUID().toString().replace("-", "");
-
-        user.setMsgId(msgId);
-
-        Jedis jedis = jedisPool.getResource();
-        jedis.lpush("sf_user_msg_id", msgId);
-        jedis.close();
-        //todo，删除策略
 
         SecurityUtils.getSubject().getSession().setAttribute("USER_INFO", user);
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(username, user.getPassword(), getName());

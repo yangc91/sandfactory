@@ -100,11 +100,6 @@ public class User implements Serializable {
     @Column("n_role_id")
     private Long roleId = 1L;
 
-    /**
-     * 用户获取该用户的最新称重消息
-     */
-    private String msgId;
-
     public Long getId() {
         return id;
     }
@@ -217,11 +212,4 @@ public class User implements Serializable {
         this.roleId = roleId;
     }
 
-    public String getMsgId() {
-        return msgId;
-    }
-
-    public void setMsgId(String msgId) {
-        this.msgId = msgId;
-    }
 }

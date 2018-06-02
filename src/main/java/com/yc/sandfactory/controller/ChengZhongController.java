@@ -17,8 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 
 /**
  * @project: sandfactory
@@ -32,9 +30,6 @@ public class ChengZhongController {
 
   @Autowired
   private IChengZhongService chengZhongService;
-
-  @Autowired
-  private JedisPool jedisPool;
 
   @RequestMapping(value = "/list")
   public Object list(String startTime, String endTime, ChengZhongRecord condition, HttpServletResponse response)
@@ -52,34 +47,23 @@ public class ChengZhongController {
     return new DataTablesReply(pagination, tables.getDraw());
   }
 
+  @RequestMapping(value = "/newList")
+  public Object newList(String startTime, String endTime, ChengZhongRecord condition,HttpServletResponse response)
+      throws JsonProcessingException {
+    logger.info("调用称重newList请求的输入参数");
+
+    DataTablesParameters tables = DataTablesParameters.newInstance();
+
+    LitePaging<ChengZhongRecord> pagination =
+        chengZhongService.queryRecordForPage(startTime, endTime, condition, 1, 10);
+
+    return new DataTablesReply(pagination, tables.getDraw());
+  }
+
   @RequestMapping(value = "/get")
   public Object get(Integer id) {
     logger.info("调用称重详情接口请求的输入参数：id：{}", id);
     ChengZhongRecord record = chengZhongService.getRecord(id);
     return record;
-  }
-
-  @RequestMapping(value = "/newRecord")
-  public Object newRecord() {
-    Map<String, Object> result = new HashMap<>();
-    //1-有数据， 2-没数据
-    result.put("code", "2");
-
-    User user = (User) SecurityUtils.getSubject().getSession().getAttribute("USER_INFO");
-    Jedis jedis = jedisPool.getResource();
-    try {
-      String json = jedis.lpop("msgid-"+user.getMsgId());
-      if ("nil".equals(json)) {
-        return null;
-      } else {
-        ChengZhongRecord record = JsonMapperProvide.alwaysMapper().readValue(json, ChengZhongRecord.class);
-        result.put("data", record);
-      }
-    } catch (Exception e) {
-
-    }finally {
-      jedis.close();
-    }
-    return result;
   }
 }
